@@ -1,0 +1,22 @@
+%clearfix
+    +clearfix
+
+%no-select
+    user-select: none
+    -webkit-touch-callout: none
+
+%flexed-list
+    display: flex
+    flex-direction: row
+    align-items: center
+    @extend %unstyled-list
+
+%unstyled-list
+    margin: 0
+    padding: 0
+    list-style: none
+
+%full-height
+    display: flex
+    flex: 1 0 auto
+    flex-direction: column

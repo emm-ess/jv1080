@@ -1,0 +1,55 @@
+input,
+select,
+optgroup,
+textarea
+    margin: 0
+    font-family: inherit
+    font-size: inherit
+    font-weight: inherit
+    line-height: inherit
+
+input
+    overflow: visible
+
+select
+    text-transform: none
+    word-wrap: normal
+
+input[type='radio'],
+input[type='checkbox']
+    box-sizing: border-box
+    padding: 0
+
+input[type='date'],
+input[type='time'],
+input[type='datetime-local'],
+input[type='month']
+    appearance: listbox
+
+textarea
+    overflow: auto
+    resize: vertical
+
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button
+    margin: 0
+    // stylelint-disable-next-line property-no-vendor-prefix
+    -webkit-appearance: none
+
+[type='search']
+    outline-offset: -2px
+    appearance: none
+
+    /* clears the 'X' from IE */
+    &::-ms-clear,
+    &::-ms-reveal
+        display: none
+        width: 0
+        height: 0
+
+    &::-webkit-search-decoration
+        appearance: none
+
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button
+        display: none

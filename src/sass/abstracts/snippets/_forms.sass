@@ -1,0 +1,55 @@
+%base-input
+    width: 100%
+    max-width: 100%
+    height: $input-height
+    padding: 0 20px
+    color: $color-text
+    background-color: $white
+    border: 1px solid $color-input-border
+    border-radius: 4px
+    font-size: $font-size-body
+    line-height: 1em
+
+%base-label
+    display: block
+    margin: 0 0 10px
+    font-weight: $font-weight-bold
+
+%base-checkbox-radio
+    & + &
+        margin-top: 18px
+
+    input
+        position: absolute
+        width: 0
+        height: 0
+        opacity: 0
+
+    label
+        position: relative
+        display: flex
+        align-items: center
+        min-height: $checkbox-size
+        margin: 0
+        font-weight: $font-weight-base
+
+    .input-label
+        min-height: 100%
+        margin: 0
+        padding: 0 0 0 $checkbox-size + 10px
+        cursor: pointer
+
+        &::before
+            position: absolute
+            top: 0
+            left: 0
+            display: block
+            content: ''
+            width: $checkbox-size
+            height: $checkbox-size
+            padding: 0
+            @extend %base-input
+
+    &.invalid
+        .input-label::before
+            border-color: $color-warning

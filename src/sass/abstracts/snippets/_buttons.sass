@@ -1,0 +1,16 @@
+%button-base
+    height: 44px
+    padding: 0 20px
+    border-radius: 4px
+    font-size: to-rem(16px)
+    line-height: 44px
+    text-align: center
+
+    &:disabled
+        opacity: 0.4
+
+%button-primary
+    color: $white
+    background: $color-btn-primary
+    font-weight: $font-weight-bold
+    @extend %button-base

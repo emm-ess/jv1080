@@ -1,0 +1,30 @@
+$breakpoints: (sm: 576px, md: 768px, lg: 992px, xl: 1200px) !default
+
+=breakpoint-down($point)
+    @if map-has-key($breakpoints, $point)
+        $size: map-get($breakpoints, $point)
+
+        @media screen and (max-width: #{$size - 0.02})
+            @content
+    @else
+        @warn 'Unfortunately, no value could be retrieved for `#{$point}`. '
+
+=breakpoint-up($point)
+    @if map-has-key($breakpoints, $point)
+        $size: map-get($breakpoints, $point)
+
+        @media screen and (min-width: #{$size})
+            @content
+    @else
+        @warn 'Unfortunately, no value could be retrieved for `#{$point}`. '
+
+=standalone
+    @media all and (display-mode: standalone)
+        @content
+
+=hover
+    // TODO:
+    // find a better solution to have hover styles on IE 11
+    @media (hover: hover), (-ms-high-contrast: none), (-ms-high-contrast: active)
+        &:hover
+            @content

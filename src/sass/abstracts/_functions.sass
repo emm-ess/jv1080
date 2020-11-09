@@ -1,0 +1,19 @@
+@function strip-unit($number)
+    @if type-of($number) == 'number' and not unitless($number)
+        @return $number / ($number * 0 + 1)
+    @return $number
+
+@function tint($color, $percentage)
+    @return mix(#ffffff, $color, $percentage)
+
+@function shade($color, $percentage)
+    @return mix(#000000, $color, $percentage)
+
+@function as-opacity($color)
+    @return strip-unit(lightness($color) / 100)
+
+@function to-rem($px, $base: $font-size-base)
+    @return $px / $base * 1rem
+
+@function to-em($px, $base: $font-size-base)
+    @return $px / $base * 1em

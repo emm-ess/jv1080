@@ -1,0 +1,136 @@
+*,
+*::before,
+*::after
+    box-sizing: border-box
+
+html
+    height: 100%
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    font-family: sans-serif
+    font-size: to-em($font-size-base, 16px)
+    line-height: 1.15
+    text-size-adjust: 100%
+    -webkit-tap-highlight-color: rgba($black, 0)
+
+body
+    display: flex
+    flex-direction: column
+    height: 100%
+    margin: 0
+    overflow-x: hidden
+    color: $color-text
+    background: $color-body
+    font-family: $font-family-base
+    font-weight: $font-weight-base
+    line-height: $line-height-base
+    text-align: left
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section
+    display: block
+
+figure
+    margin: 0 0 1rem
+
+svg,
+img
+    max-width: 100%
+    max-height: 100%
+
+img
+    border-style: none
+    vertical-align: middle
+
+svg
+    overflow: hidden
+    fill: currentColor
+    vertical-align: middle
+
+svg:not(:root)
+    overflow: hidden
+
+iframe
+    border: 0
+
+[tabindex='-1']:focus
+    outline: 0 !important
+
+hr
+    box-sizing: content-box
+    height: 0
+    overflow: visible
+
+abbr[title],
+abbr[data-original-title]
+    border-bottom: 0
+    cursor: help
+    text-decoration: underline
+    text-decoration: underline dotted
+    text-decoration-skip-ink: none
+
+address
+    margin-bottom: 1rem
+    font-style: normal
+    line-height: inherit
+
+ol,
+ul,
+dl
+    margin-top: 0
+    margin-bottom: 1rem
+
+ol ol,
+ul ul,
+ol ul,
+ul ol
+    margin-bottom: 0
+
+dt
+    font-weight: $dt-font-weight
+
+dd
+    margin-bottom: .5rem
+    margin-left: 0
+
+blockquote
+    margin: 0 0 1rem
+
+pre
+    margin-top: 0
+    margin-bottom: 1rem
+    overflow: auto
+
+table
+    border-collapse: collapse
+
+caption
+    padding-top: 0
+    padding-bottom: 0
+    color: $color-text
+    caption-side: bottom
+    text-align: left
+
+th
+    text-align: inherit
+
+output
+    display: inline-block
+
+summary
+    display: list-item
+    cursor: pointer
+
+template
+    display: none
+
+[hidden]
+    display: none !important

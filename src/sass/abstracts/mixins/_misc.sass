@@ -1,0 +1,16 @@
+=single-line($line-height: $line-height-base)
+    height: $line-height
+    overflow: hidden
+    line-height: $line-height
+    text-overflow: ellipsis
+    white-space: nowrap
+
+=notch-phone
+    @supports(padding: unquote('max(0px)'))
+        @content
+
+=clearfix()
+    &::after
+        display: block
+        clear: both
+        content: ""
