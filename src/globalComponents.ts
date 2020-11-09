@@ -28,4 +28,3 @@ export function registerGlobalComponents(app: App): void {
         )
     })
 }
-

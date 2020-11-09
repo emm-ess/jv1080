@@ -1,7 +1,10 @@
 module.exports = {
     syntax: 'postcss-sass',
 
-    plugins: ['stylelint-scss'],
+    plugins: [
+        'stylelint-scss',
+        'stylelint-no-unsupported-browser-features',
+    ],
 
     extends: [
         'stylelint-config-standard',
@@ -30,6 +33,9 @@ module.exports = {
         'max-empty-lines': 3,
         'no-descending-specificity': null,
         'font-family-no-missing-generic-family-keyword': null,
+        'plugin/no-unsupported-browser-features': [true, {
+            'ignorePartialSupport': true,
+        }],
     },
 
     root: true,

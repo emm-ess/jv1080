@@ -19,6 +19,7 @@ module.exports = {
         '@vue/prettier/@typescript-eslint',
         'plugin:eslint-comments/recommended',
         'plugin:json/recommended',
+        'plugin:compat/recommended',
     ],
 
     rules: {
