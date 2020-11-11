@@ -1,4 +1,5 @@
 const path = require('path')
+const LocalTrustChain = require('local-trust-chain')
 
 module.exports = {
     publicPath: '/',
@@ -7,6 +8,7 @@ module.exports = {
 
     devServer: {
         open: true,
+        https: LocalTrustChain(),
     },
 
     css: {
