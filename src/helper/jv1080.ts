@@ -4,6 +4,7 @@ import WebMidi from 'webmidi'
 
 const MIDI_SUPPORTED = !!navigator.requestMIDIAccess
 const enabled = ref(false)
+const connected = ref(false)
 const availableInputs = reactive<WebMidi.MIDIInput[]>([])
 const availableOutputs = reactive<WebMidi.MIDIOutput[]>([])
 const availablePorts = {
@@ -22,12 +23,13 @@ const portsInUse: {
 export const JV1080 = readonly({
     MIDI_SUPPORTED,
     enabled,
+    connected,
     availablePorts,
+    portsInUse,
     enableMidi,
     setPorts,
     playTest,
 })
-
 
 async function enableMidi(): Promise<void> {
     if (enabled.value || !MIDI_SUPPORTED) {
@@ -37,9 +39,13 @@ async function enableMidi(): Promise<void> {
     return new Promise((resolve, reject) => {
         function onMIDISuccess(midiAccess: WebMidi.MIDIAccess) {
             enabled.value = true
-            addDevices(midiAccess, 'inputs')
-            addDevices(midiAccess, 'outputs')
+            addDevices(midiAccess.inputs, availableInputs)
+            addDevices(midiAccess.outputs, availableOutputs)
+            if (availableInputs.length === 1 && availableOutputs.length === 1) {
+                setPorts({input: availableInputs[0], output: availableOutputs[0]})
+            }
             midiAccess.addEventListener('statechange', onStateChange)
+            resolve()
         }
 
         function onMIDIFailure() {
@@ -51,11 +57,13 @@ async function enableMidi(): Promise<void> {
     })
 }
 
-function addDevices(midiAccess: WebMidi.MIDIAccess, type: 'inputs' | 'outputs'): void {
-    const target = availablePorts[type]
+function addDevices<
+    Source extends WebMidi.MIDIInputMap | WebMidi.MIDIOutputMap,
+    Target extends Source extends WebMidi.MIDIInputMap ? WebMidi.MIDIInput : WebMidi.MIDIOutput
+>(source: Source, target: Target[]): void {
     target.splice(0)
 
-    for (const device of midiAccess[type].values()) {
+    for (const device of source.values()) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         target.push(device)
@@ -65,9 +73,7 @@ function addDevices(midiAccess: WebMidi.MIDIAccess, type: 'inputs' | 'outputs'):
 function onStateChange({port}: Pick<WebMidi.MIDIConnectionEvent, 'port'>): void {
     const {state, type} = port
 
-    const target = type === 'input'
-        ? availableInputs
-        : availableOutputs
+    const target = type === 'input' ? availableInputs : availableOutputs
 
     if (state === 'connected') {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -84,18 +90,7 @@ function onStateChange({port}: Pick<WebMidi.MIDIConnectionEvent, 'port'>): void 
 
 function setPorts(ports: NonNullableObject<typeof portsInUse>): void {
     Object.assign(portsInUse, ports)
-}
-
-/**
- * returns true if connection opening was needed.
- * @param port
- */
-async function connectIfNeeded(port: WebMidi.MIDIPort): Promise<boolean> {
-    if (port.connection !== 'open') {
-        await port.open()
-        return true
-    }
-    return false
+    connected.value = true
 }
 
 async function playTest(output?: WebMidi.MIDIOutput): Promise<void> {
@@ -103,13 +98,17 @@ async function playTest(output?: WebMidi.MIDIOutput): Promise<void> {
         return
     }
     output = (output || portsInUse.output) as WebMidi.MIDIOutput
-    await connectIfNeeded(output)
     await playNote(output, 60)
     await playNote(output, 62)
     await playNote(output, 64)
 }
 
-async function playNote(port: WebMidi.MIDIOutput, pitch: number, velocity = 127, duration = 500): Promise<void> {
+async function playNote(
+    port: WebMidi.MIDIOutput,
+    pitch: number,
+    velocity = 127,
+    duration = 500,
+): Promise<void> {
     port.send([WebMidi.MIDI_CHANNEL_MESSAGES.noteon << 4, pitch, velocity], 0)
     await sleep(duration)
     port.send([WebMidi.MIDI_CHANNEL_MESSAGES.noteoff << 4, pitch, velocity], 0)

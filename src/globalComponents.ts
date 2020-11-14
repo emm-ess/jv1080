@@ -4,9 +4,10 @@ import camelCase from 'lodash/camelCase'
 
 const requireComponent = require.context(
     // The relative path of the components folder
-    '@/components/baseComponents',
+    '@/components/globalComponents',
     // Whether or not to look in subfolders
     true,
+    /\.(vue|ts)$/,
 )
 
 export function registerGlobalComponents(app: App): void {

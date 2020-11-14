@@ -10,10 +10,7 @@ export type InputMixinOptions = {
 @Options({
     emits: ['update:modelValue'],
 })
-export class InputMixin<
-    Options extends InputMixinOptions,
-    ValueType = unknown
-    > extends Vue {
+export class InputMixin<Options extends InputMixinOptions, ValueType = unknown> extends Vue {
     @Model('update:modelValue')
     protected readonly modelValue!: ValueType
 

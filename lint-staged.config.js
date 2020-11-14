@@ -2,7 +2,7 @@ module.exports = {
     // lint JS/TS-Code
     '*.{js,jsx,ts,tsx,vue,json}': ['prettier --write', 'eslint --cache --fix'],
     // check-types
-    '*.{ts,tsx,vue}': () => ['npm run check-types'],
+    '*.{ts,tsx,vue}': () => ['tsc --noEmit'],
     // lint styles
     '*.{sass,vue}': ['stylelint --cache'],
     // optimize images

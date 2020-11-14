@@ -6,18 +6,14 @@
 
         <select
             :id="innerOptions.id"
+            v-model="innerModel"
             :name="innerName"
             :readonly="innerOptions.readonly"
-            v-model="innerModel"
         >
             <option v-if="innerOptions.defaultText" value="null" disabled>
                 {{ innerOptions.defaultText }}
             </option>
-            <option
-                v-for="item in items"
-                :key="item[itemValue]"
-                :value="item[itemValue]"
-            >
+            <option v-for="item in items" :key="item[itemValue]" :value="item[itemValue]">
                 {{ item[itemTitle] }}
             </option>
         </select>
@@ -46,10 +42,9 @@ const OPTION_DEFAULTS = {
 @Options({
     name: 'JvSelect',
 })
-export default class JvSelect<
-    ValueType extends Record<string, unknown>
-    > extends mixins(InputMixin) {
-
+export default class JvSelect<ValueType extends Record<string, unknown>> extends mixins(
+    InputMixin,
+) {
     @Prop({type: Array, required: true})
     private readonly items!: Array<ValueType>
 
@@ -102,10 +97,10 @@ select
     height: $select-height
     margin: 0
     padding: 0 50px 0 20px
-    // background-image: url('~@/assets/img/select-arrow.svg')
+    background-image: url('~@/assets/img/select-arrow.svg')
     background-repeat: no-repeat
-    background-position: right 20px top 50%
-    background-size: auto 8px
+    background-position: right 10px top 50%
+    background-size: 22px 22px
     //avoid iOS Zoom
     font-size: $font-size-body
     font-weight: $font-weight-base

@@ -1,19 +1,16 @@
 <script lang="ts">
-import { h, SetupContext, VNode } from 'vue'
+import {h, VNode} from 'vue'
 
 export type SvgSpriteProps = {
     icon: string
     title?: string
 }
 
-const SvgSprite = (props: SvgSpriteProps, context: SetupContext): VNode | VNode[] => {
+const SvgSprite = (props: SvgSpriteProps): VNode | VNode[] => {
     const {icon, title} = props
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const iconFile = require(`@/assets/img/svg-sprite/${icon}.svg`)
-    const iconPath = Object.prototype.hasOwnProperty.call(
-        iconFile,
-        'default',
-    )
+    const iconPath = Object.prototype.hasOwnProperty.call(iconFile, 'default')
         ? iconFile.default.url
         : iconFile.url
 
@@ -21,10 +18,8 @@ const SvgSprite = (props: SvgSpriteProps, context: SetupContext): VNode | VNode[
 
     children.push(
         h('use', {
-            attrs: {
-                'xmlns:xlink': 'http://www.w3.org/1999/xlink',
-                'xlink:href': iconPath,
-            },
+            'xmlns:xlink': 'http://www.w3.org/1999/xlink',
+            'xlink:href': iconPath,
         }),
     )
 
@@ -34,10 +29,8 @@ const SvgSprite = (props: SvgSpriteProps, context: SetupContext): VNode | VNode[
         'svg',
         {
             key,
-            staticClass: `svg-icon ${key}`,
-            attrs: {
-                xmlns: 'http://www.w3.org/2000/svg',
-            },
+            class: `svg-icon ${key}`,
+            xmlns: 'http://www.w3.org/2000/svg',
         },
         children,
     )
