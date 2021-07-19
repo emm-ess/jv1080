@@ -1,1 +1,1 @@
-export * from './jv1080'
+export * from './misc'

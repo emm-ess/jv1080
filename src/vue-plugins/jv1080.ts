@@ -1,5 +1,5 @@
 import type {App} from 'vue'
-import {JV1080} from '@/helper'
+import {JV1080} from '@/jv1080'
 
 export default {
     async install(app: App): Promise<void> {

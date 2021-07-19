@@ -2,9 +2,9 @@ declare type MaybeArray<T> = T | T[]
 
 declare type ValuesOf<T> = T extends ImmutablePrimitive
     ? T
-    : T extends Array<infer U>
+    : Immutable<T> extends ImmutableArray<infer U>
     ? T[number]
-    : T extends Record<infer K, infer U>
+    : T extends ImmutableObject<infer K, infer U>
     ? T[K]
     : unknown
 
@@ -42,3 +42,6 @@ declare type Optional<Type extends Record<string, unknown>, Keys extends string>
 declare type EmptyObject = object
 
 declare type NonNullableObject<T> = {[K in keyof T]: NonNullable<T[K]>}
+
+declare type Writable<T> = {-readonly [K in keyof T]: T[K]}
+declare type WritablePartial<T> = {-readonly [K in keyof T]?: T[K]}

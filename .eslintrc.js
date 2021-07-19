@@ -11,9 +11,8 @@ module.exports = {
     },
 
     extends: [
-        'eslint:recommended',
         'plugin:vue/vue3-recommended',
-        '@vue/standard',
+        'eslint:recommended',
         '@vue/typescript/recommended',
         '@vue/prettier',
         '@vue/prettier/@typescript-eslint',
@@ -109,6 +108,14 @@ module.exports = {
             files: ['*.ts', '*.vue'],
             rules: {
                 'no-undef': 'off',
+            },
+        },
+        {
+            files: ['./*.js'],
+            env: {
+                node: true,
+                browser: false,
+                es6: false,
             },
         },
     ],

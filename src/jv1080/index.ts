@@ -1,6 +1,8 @@
-import {sleep} from '@/helper/misc'
+import {sleep} from '@/helper'
 import {ref, reactive, readonly} from 'vue'
-import WebMidi from 'webmidi'
+import {MIDI_STATUS_BYTE} from './const'
+
+console.log(MIDI_STATUS_BYTE)
 
 const MIDI_SUPPORTED = !!navigator.requestMIDIAccess
 const enabled = ref(false)
@@ -109,7 +111,7 @@ async function playNote(
     velocity = 127,
     duration = 500,
 ): Promise<void> {
-    port.send([WebMidi.MIDI_CHANNEL_MESSAGES.noteon << 4, pitch, velocity], 0)
+    port.send([MIDI_STATUS_BYTE.NOTE_ON, pitch, velocity], 0)
     await sleep(duration)
-    port.send([WebMidi.MIDI_CHANNEL_MESSAGES.noteoff << 4, pitch, velocity], 0)
+    port.send([MIDI_STATUS_BYTE.NOTE_OFF, pitch, velocity], 0)
 }
