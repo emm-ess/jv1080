@@ -1,18 +1,19 @@
 const {entries, fromEntries} = Object
 
-type MapFunction<Obj extends Record<string | number | symbol, unknown>, Key extends keyof Obj> = (
-    value: Obj[Key],
+type MapFunction<Object_ extends Record<string | number | symbol, unknown>, Key extends keyof Object_> = (
+    value: Object_[Key],
     key: Key,
-    obj: Obj,
+    object: Object_,
 ) => unknown
 
 export function mapObject<
-    Obj extends Record<string | number | symbol, unknown>,
-    Key extends keyof Obj,
-    CB extends MapFunction<Obj, Key>,
-    Result extends {[key in Key]: ReturnType<CB>}
->(obj: Obj, cb: CB): Result {
+    Object_ extends Record<string | number | symbol, unknown>,
+    Key extends keyof Object_,
+    CB extends MapFunction<Object_, Key>,
+    Result extends Record<Key, ReturnType<CB>>
+>(object: Object_, callback: CB): Result {
     return fromEntries(
-        entries(obj).map(([key, value]) => [key as Key, cb(value as Obj[Key], key as Key, obj)]),
+        // eslint-disable-next-line node/no-callback-literal
+        entries(object).map(([key, value]) => [key as Key, callback(value as Object_[Key], key as Key, object)]),
     ) as Result
 }

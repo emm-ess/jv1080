@@ -1,20 +1,23 @@
 <script lang="ts">
-import {h, VNode} from 'vue'
+import type {VNode} from 'vue'
+import {h} from 'vue'
 
-export type SvgSpriteProps = {
+export type SvgSpriteProperties = {
     icon: string
     title?: string
 }
 
-const SvgSprite = (props: SvgSpriteProps): VNode | VNode[] => {
-    const {icon, title} = props
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+const SvgSprite = (properties: SvgSpriteProperties): VNode | VNode[] => {
+    const {icon, title} = properties
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
     const iconFile = require(`@/assets/img/svg-sprite/${icon}.svg`)
     const iconPath = Object.prototype.hasOwnProperty.call(iconFile, 'default')
         ? iconFile.default.url
         : iconFile.url
 
-    const children = title ? [h('title', title)] : []
+    const children = title
+        ? [h('title', title)]
+        : []
 
     children.push(
         h('use', {

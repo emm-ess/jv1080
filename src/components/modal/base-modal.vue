@@ -48,7 +48,7 @@ header
     // stylelint-disable-next-line color-named
     border-bottom: 1px solid $black
 
-    /deep/ h1
+    :deep(h1)
         margin: 0
 
 .button-close

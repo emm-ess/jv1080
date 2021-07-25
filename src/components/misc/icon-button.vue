@@ -1,6 +1,8 @@
 <script lang="ts">
-import {h, VNode} from 'vue'
-import SvgSprite from './SvgSprite.vue'
+import type {VNode} from 'vue'
+import {h} from 'vue'
+
+import SvgSprite from './svg-sprite.vue'
 
 export type IconButtonOptions = {
     type: string

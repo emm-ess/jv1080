@@ -2,7 +2,7 @@ export * from './data-addresses'
 export * from './midi'
 
 export const ROLAND_MANUFACTURER_ID = 0x41
-export const JV1080_MODEL_ID = 0x6a
+export const JV1080_MODEL_ID = 0x6A
 
 export const ROLAND_EXCLUSIVE_COMMANDS = {
     /**

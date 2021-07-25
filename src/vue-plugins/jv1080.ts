@@ -1,4 +1,5 @@
 import type {App} from 'vue'
+
 import {JV1080} from '@/jv1080'
 
 export default {

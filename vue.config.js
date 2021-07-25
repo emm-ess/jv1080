@@ -1,6 +1,7 @@
 const path = require('path')
 const LocalTrustChain = require('local-trust-chain')
 
+/** @type {import('@vue/cli-service').ProjectOptions} */
 module.exports = {
     publicPath: '/',
     assetsDir: 'static/',
@@ -14,7 +15,7 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                additionalData: '@import \'@/sass/abstracts\'',
+                additionalData: '@use \'@/sass/abstracts\' as *',
             },
         },
     },
@@ -40,5 +41,9 @@ module.exports = {
 
     chainWebpack: (config) => {
         config.module.rule('sideEffects').resourceQuery(/keep/).sideEffects(true)
+        config.module
+            .rule('svg-sprite')
+            .use('svgo-loader')
+            .loader('svgo-loader')
     },
 }

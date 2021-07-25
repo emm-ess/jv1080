@@ -1,4 +1,5 @@
 import {getValueValidator, mapObject} from '@/lib'
+
 import type {
     DataAddress,
     DataAddresses,
@@ -45,6 +46,7 @@ export function rehydrateDataAddresses<Dehydrated extends DehydratedDataAddresse
         const rehydratedChild = isDataAddressNode(value)
             ? rehydrateDataAddresses(value[1], childAddress)
             : rehydrateDataAddress(value, childAddress)
+        // eslint-disable-next-line unicorn/explicit-length-check
         size += rehydratedChild.size || 1
         return rehydratedChild
     })

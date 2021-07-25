@@ -3,13 +3,15 @@ import type {DataAddress, DataAddresses, DehydratedDataAddresses} from '@/jv1080
 import {nonUnique} from '@/lib'
 
 type TestAddress = DataAddress & {path: string}
-function getLeaves(obj: DataAddresses<DehydratedDataAddresses>, parentPath = ''): TestAddress[] {
+function getLeaves(object: DataAddresses<DehydratedDataAddresses>, parentPath = ''): TestAddress[] {
     const leaves: TestAddress[] = []
-    for (const [key, value] of Object.entries(obj)) {
+    for (const [key, value] of Object.entries(object)) {
         if (typeof value !== 'object') {
             continue
         }
-        const path = parentPath ? `${parentPath}.${key}` : key
+        const path = parentPath
+            ? `${parentPath}.${key}`
+            : key
         if (value.range) {
             leaves.push({
                 ...value,
@@ -28,6 +30,7 @@ function getLeaves(obj: DataAddresses<DehydratedDataAddresses>, parentPath = '')
 }
 
 type Duplicates = Record<number, string[]>
+
 describe('JV1080_DATA_ADDRESSES', () => {
     const LEAVES = getLeaves(
         (JV1080_DATA_ADDRESSES as unknown) as DataAddresses<DehydratedDataAddresses>,
@@ -35,7 +38,7 @@ describe('JV1080_DATA_ADDRESSES', () => {
 
     it('consists of unique addresses', () => {
         const addressDuplicates = nonUnique(LEAVES.map(({address}) => address))
-        if (addressDuplicates.length !== 0) {
+        if (addressDuplicates.length > 0) {
             const duplicatesPaths = LEAVES.filter(({address}) => {
                 return addressDuplicates.includes(address)
             }).reduce((duplicates, {address, path}) => {

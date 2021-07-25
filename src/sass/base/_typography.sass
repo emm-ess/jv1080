@@ -1,5 +1,4 @@
-// Load DBSansCond
-//+create-font-face(DBSansCond, 300, dbsan43-webfont)
+@use '../abstracts/typography' as *
 
 h1,
 .h1
@@ -25,7 +24,9 @@ p
         margin-top: $line-height-base
 
 p + h2
-    margin-top: 2 * $line-height-base
+    // 2 * $line-height-base raised an Sass-error :(
+    // SassError: Undefined operation "2 * to-em(20px, 16px)".
+    margin-top: $line-height-base + $line-height-base
 
 b,
 strong

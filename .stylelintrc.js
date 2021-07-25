@@ -1,4 +1,6 @@
 module.exports = {
+    root: true,
+
     syntax: 'postcss-sass',
 
     plugins: [
@@ -34,9 +36,13 @@ module.exports = {
         'no-descending-specificity': null,
         'font-family-no-missing-generic-family-keyword': null,
         'plugin/no-unsupported-browser-features': [true, {
-            'ignorePartialSupport': true,
+            ignorePartialSupport: true,
         }],
+        'selector-pseudo-element-no-unknown': [
+            true,
+            {
+                ignorePseudoElements: ['v-deep'],
+            },
+        ],
     },
-
-    root: true,
 }

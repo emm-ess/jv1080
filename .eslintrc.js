@@ -10,23 +10,43 @@ module.exports = {
         parser: '@typescript-eslint/parser',
     },
 
+    plugins: [
+        'simple-import-sort',
+    ],
+
     extends: [
         'plugin:vue/vue3-recommended',
         'eslint:recommended',
         '@vue/typescript/recommended',
         '@vue/prettier',
         '@vue/prettier/@typescript-eslint',
+        '@vue/eslint-config-standard',
+
+        // lint Vues SFC Styles
+        'plugin:vue-scoped-css/recommended',
+
+        // code-smell-detection / code-quality
+        'plugin:unicorn/recommended',
+        'plugin:sonarjs/recommended',
+
+        // imports & import-sorting
+        'plugin:import/errors',
+        'plugin:import/warnings',
+        'plugin:import/typescript',
+
+        // misc
         'plugin:eslint-comments/recommended',
         'plugin:json/recommended',
         'plugin:compat/recommended',
     ],
 
     rules: {
-        // TODO:
-        // this rule should not be turned of for master
-        'no-console': 'off',
-        // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'no-console': process.env.NODE_ENV === 'production'
+            ? 'error'
+            : 'off',
+        'no-debugger': process.env.NODE_ENV === 'production'
+            ? 'error'
+            : 'off',
         indent: [
             'error',
             4,
@@ -79,8 +99,38 @@ module.exports = {
                 beforeStatementContinuationChars: 'always',
             },
         ],
+        'multiline-ternary': ['warn', 'always'],
+        'operator-linebreak': ['warn', 'before'],
         quotes: ['error', 'single'],
         'prettier/prettier': ['off'],
+
+        '@typescript-eslint/consistent-type-imports': [
+            'error',
+            {
+                prefer: 'type-imports',
+            },
+        ],
+        'quote-props': ['error', 'as-needed'],
+        'object-curly-spacing': ['error', 'never'],
+        'arrow-parens': ['error', 'always'],
+
+        // vue styles
+        'vue-scoped-css/require-scoped': 'off',
+        // vue-scoped-css can't deal with SASS :(
+        'vue-scoped-css/no-parsing-error': 'off',
+
+        // code smell
+        // well vue needs null instead of undefined
+        'unicorn/no-null': 'off',
+        'unicorn/no-array-callback-reference': 'off',
+        'unicorn/no-new-array': 'off',
+        'unicorn/no-array-reduce': 'off',
+
+        // import sorting
+        'sort-import': 'off',
+        'import/order': 'off',
+        'simple-import-sort/imports': 'error',
+        'simple-import-sort/exports': 'error',
     },
 
     overrides: [
@@ -90,7 +140,10 @@ module.exports = {
                 jest: true,
             },
             plugins: ['jest'],
-            extends: ['plugin:jest/recommended'],
+            extends: [
+                'plugin:jest/recommended',
+                'plugin:jest-formatting/recommended',
+            ],
         },
         {
             files: ['*.js'],
@@ -101,7 +154,9 @@ module.exports = {
         {
             files: ['*.d.ts'],
             rules: {
+                'no-unused-vars': 'off',
                 'no-use-before-define': 'off',
+                '@typescript-eslint/no-unused-vars': 'off',
             },
         },
         {
@@ -116,6 +171,9 @@ module.exports = {
                 node: true,
                 browser: false,
                 es6: false,
+            },
+            rules: {
+                'unicorn/prefer-module': 'off',
             },
         },
     ],

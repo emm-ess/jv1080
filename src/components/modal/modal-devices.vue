@@ -42,10 +42,11 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component'
-import {PropSync} from 'vue-property-decorator'
+import {Model} from 'vue-property-decorator'
 
-import BaseModal from './BaseModal.vue'
-import JvSelect from '@/components/form/JvSelect.vue'
+import JvSelect from '@/components/form/jv-select.vue'
+
+import BaseModal from './base-modal.vue'
 
 @Options({
     components: {
@@ -55,7 +56,7 @@ import JvSelect from '@/components/form/JvSelect.vue'
     emits: ['update:open'],
 })
 export default class ModalDevices extends Vue {
-    @PropSync('open')
+    @Model('open', {type: Boolean, default: false})
     innerOpen!: boolean
 
     input: WebMidi.MIDIInput | null = null

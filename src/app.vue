@@ -17,7 +17,8 @@
 
 <script lang="ts">
 import {Options, Vue} from 'vue-class-component'
-import ModalDevices from '@/components/modal/ModalDevices.vue'
+
+import ModalDevices from '@/components/modal/modal-devices.vue'
 
 @Options({
     components: {

@@ -1,8 +1,8 @@
-import {sleep} from '@/helper'
-import {ref, reactive, readonly} from 'vue'
-import {MIDI_STATUS_BYTE} from './const'
+import {reactive, readonly, ref} from 'vue'
 
-console.log(MIDI_STATUS_BYTE)
+import {sleep} from '@/helper'
+
+import {MIDI_STATUS_BYTE} from './const'
 
 const MIDI_SUPPORTED = !!navigator.requestMIDIAccess
 const enabled = ref(false)
@@ -51,9 +51,10 @@ async function enableMidi(): Promise<void> {
         }
 
         function onMIDIFailure() {
-            const msg = 'Could not access your MIDI devices.'
-            console.error(msg)
-            reject(new Error(msg))
+            const message = 'Could not access your MIDI devices.'
+            // eslint-disable-next-line no-console
+            console.error(message)
+            reject(new Error(message))
         }
         navigator.requestMIDIAccess({sysex: true}).then(onMIDISuccess, onMIDIFailure)
     })
@@ -75,7 +76,9 @@ function addDevices<
 function onStateChange({port}: Pick<WebMidi.MIDIConnectionEvent, 'port'>): void {
     const {state, type} = port
 
-    const target = type === 'input' ? availableInputs : availableOutputs
+    const target = type === 'input'
+        ? availableInputs
+        : availableOutputs
 
     if (state === 'connected') {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

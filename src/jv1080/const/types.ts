@@ -1,5 +1,7 @@
 import type {ValueValidator} from '@/lib'
 
+/* eslint-disable no-use-before-define */
+
 export type DehydratedValuesData = readonly [number, 'values', readonly (string | number)[]]
 export type DehydratedRangeData = readonly [number, 'range', number | readonly [number, number]]
 export type DehydratedData = DehydratedValuesData | DehydratedRangeData
@@ -27,3 +29,5 @@ export type DataAddresses<Dehydrated extends DehydratedDataAddresses> = {
         ? DataAddresses<Dehydrated[Key][1]>
         : DataAddress
 }
+
+/* eslint-enable no-use-before-define */

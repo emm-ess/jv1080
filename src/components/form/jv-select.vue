@@ -21,10 +21,11 @@
 </template>
 
 <script lang="ts">
-import {Options, mixins} from 'vue-class-component'
+import {mixins, Options} from 'vue-class-component'
 import {Prop} from 'vue-property-decorator'
 
-import {InputMixin, InputMixinOptions} from './inputMixin'
+import type {InputMixinOptions} from './input-mixin'
+import {InputMixin} from './input-mixin'
 
 export type SelectOptions = InputMixinOptions & {
     itemTitle?: string

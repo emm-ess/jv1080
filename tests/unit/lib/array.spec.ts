@@ -1,10 +1,10 @@
-import {unique, nonUnique, createNumberArray} from '@/lib/array'
+import {createNumberArray, nonUnique, unique} from '@/lib/array'
 
 const TEST_ARRAY = ['a', 'b', 'a', 'c', 'B', 'a', 'b', 'e', 'd']
 
 describe('unique', () => {
     it('doesn\'t change the provided array', () => {
-        const copy = TEST_ARRAY.slice()
+        const copy = [...TEST_ARRAY]
         unique(copy)
         expect(copy.length).toBe(TEST_ARRAY.length)
     })
@@ -17,7 +17,7 @@ describe('unique', () => {
 
 describe('nonUnique', () => {
     it('doesn\'t change the provided array', () => {
-        const copy = TEST_ARRAY.slice()
+        const copy = [...TEST_ARRAY]
         nonUnique(copy)
         expect(copy.length).toBe(TEST_ARRAY.length)
     })

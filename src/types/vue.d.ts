@@ -1,5 +1,7 @@
-import {ComponentCustomProperties} from 'vue'
-import {JV1080} from '@/helper'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type {ComponentCustomProperties} from 'vue'
+
+import type {JV1080} from '@/helper'
 
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {

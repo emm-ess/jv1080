@@ -1,6 +1,7 @@
 /* eslint key-spacing: ["error", { "align": "value" }] */
 
 import {createNumberArray} from '@/lib'
+
 import {rehydrateDataAddresses} from './helper'
 import type {
     DehydratedData,
@@ -182,8 +183,8 @@ function generateNameSection(): DehydratedNameData {
     const valueRange = [32, 127] as const
 
     const result: DehydratedNameData = {}
-    for (let i = 0; i < 12; i++) {
-        result[`NAME_${i + 1}`] = [i, range, valueRange]
+    for (let index = 0; index < 12; index++) {
+        result[`NAME_${index + 1}`] = [index, range, valueRange]
     }
     return result
 }
@@ -275,16 +276,16 @@ type ControllerSectionData = {
 }
 const CONTROLLER_SECTION = ((): ControllerSectionData => {
     const entries: ControllerSectionData = {}
-    for (let i = 0; i < 3; i++) {
-        const outerOffset = 0x15 + i * 8
-        for (let j = 0; j < 4; j++) {
-            const offset = outerOffset + j * 2
-            entries[`CONTROLLER_${i + 1}_DESTINATION_${j + 1}`] = [
+    for (let index = 0; index < 3; index++) {
+        const outerOffset = 0x15 + index * 8
+        for (let index_ = 0; index_ < 4; index_++) {
+            const offset = outerOffset + index_ * 2
+            entries[`CONTROLLER_${index + 1}_DESTINATION_${index_ + 1}`] = [
                 offset,
                 values,
                 VALUES.CONTROLLER_DESTINATION,
             ]
-            entries[`CONTROLLER_${i + 1}_DEPTH_${j + 1}`] = [offset + 1, range, 126]
+            entries[`CONTROLLER_${index + 1}_DEPTH_${index_ + 1}`] = [offset + 1, range, 126]
         }
     }
     return entries
@@ -313,12 +314,12 @@ const SYSTEM_COMMON = {
     SCALE_TUNE_SWITCH:         [0x07, values, VALUES.BOOLEAN],
     EFX_SWITCH:                [0x08, values, VALUES.BOOLEAN],
     CHORUS_SWITCH:             [0x09, values, VALUES.BOOLEAN],
-    REVERB_SWITCH:             [0x0a, values, VALUES.BOOLEAN],
-    PATCH_REMAIN:              [0x0b, values, VALUES.BOOLEAN],
-    CLOCK_SOURCE:              [0x0c, values, VALUES.CLOCK_SOURCE],
-    TAP_CONTROL_SOURCE:        [0x0d, values, VALUES.HOLD],
-    HOLD_CONTROL_SOURCE:       [0x0e, values, VALUES.HOLD],
-    PEAK_CONTROL_SOURCE:       [0x0f, values, VALUES.HOLD],
+    REVERB_SWITCH:             [0x0A, values, VALUES.BOOLEAN],
+    PATCH_REMAIN:              [0x0B, values, VALUES.BOOLEAN],
+    CLOCK_SOURCE:              [0x0C, values, VALUES.CLOCK_SOURCE],
+    TAP_CONTROL_SOURCE:        [0x0D, values, VALUES.HOLD],
+    HOLD_CONTROL_SOURCE:       [0x0E, values, VALUES.HOLD],
+    PEAK_CONTROL_SOURCE:       [0x0F, values, VALUES.HOLD],
     VOLUME_CONTROL_SOURCE:     [0x10, values, VALUES.VOLUME_CONTROL_SOURCE],
     AFTERTOUCH_SOURCE:         [0x11, values, VALUES.AFTERTOURCH_SOURCE],
     /**
@@ -339,12 +340,12 @@ const SYSTEM_COMMON = {
     RECEIVE_MODULATION:        [0x17, values, VALUES.BOOLEAN],
     RECEIVE_VOLUME:            [0x18, values, VALUES.BOOLEAN],
     RECEIVE_HOLD_1:            [0x19, values, VALUES.BOOLEAN],
-    RECEIVE_BENDER:            [0x1a, values, VALUES.BOOLEAN],
-    RECEIVE_AFTERTOUCH:        [0x1b, values, VALUES.BOOLEAN],
-    CONTROL_CHANNEL:           [0x1c, values, VALUES.CONTROL_CHANNEL],
-    PATCH_RECEIVE_CHANNEL:     [0x1d, values, VALUES.PATCH_RECEIVE_CHANNEL],
-    RHYTHM_EDIT_SOURCE:        [0x1e, values, VALUES.RHYTHM_EDIT_SOURCE],
-    PREVIEW_SOUND_MODE:        [0x1f, values, VALUES.PREVIEW_SOUND_MODE],
+    RECEIVE_BENDER:            [0x1A, values, VALUES.BOOLEAN],
+    RECEIVE_AFTERTOUCH:        [0x1B, values, VALUES.BOOLEAN],
+    CONTROL_CHANNEL:           [0x1C, values, VALUES.CONTROL_CHANNEL],
+    PATCH_RECEIVE_CHANNEL:     [0x1D, values, VALUES.PATCH_RECEIVE_CHANNEL],
+    RHYTHM_EDIT_SOURCE:        [0x1E, values, VALUES.RHYTHM_EDIT_SOURCE],
+    PREVIEW_SOUND_MODE:        [0x1F, values, VALUES.PREVIEW_SOUND_MODE],
     /** C1 - G9 */
     PREVIEW_KEY_1:             [0x20, range, 127],
     /** OFF, 1 - 127 */
@@ -375,19 +376,19 @@ const SCALE_TUNE = {
     G:       [0x07, range, [-64, 63]],
     G_SHARP: [0x08, range, [-64, 63]],
     A:       [0x09, range, [-64, 63]],
-    A_SHARP: [0x0a, range, [-64, 63]],
-    B:       [0x0b, range, [-64, 63]],
+    A_SHARP: [0x0A, range, [-64, 63]],
+    B:       [0x0B, range, [-64, 63]],
 } as const
 
 // 1-2-1 Performance common
 const PERFORMANCE_COMMON = {
     ...generateNameSection(),
     //
-    EFX_SOURCE:            [0x0c, values, VALUES.EFX_SOURCE],
-    ...generateEfxSection(0x0d),
+    EFX_SOURCE:            [0x0C, values, VALUES.EFX_SOURCE],
+    ...generateEfxSection(0x0D),
     //
-    DEFAULT_TEMPO:         [0x2d, range, [20, 250]],
-    KEY_RANGE_SWITCH:      [0x2f, values, VALUES.BOOLEAN],
+    DEFAULT_TEMPO:         [0x2D, range, [20, 250]],
+    KEY_RANGE_SWITCH:      [0x2F, values, VALUES.BOOLEAN],
     //
     PART_1_VOICE_RESERVE:  [0x30, range, 64],
     PART_2_VOICE_RESERVE:  [0x31, range, 64],
@@ -399,12 +400,12 @@ const PERFORMANCE_COMMON = {
     PART_8_VOICE_RESERVE:  [0x37, range, 64],
     PART_9_VOICE_RESERVE:  [0x38, range, 64],
     PART_10_VOICE_RESERVE: [0x39, range, 64],
-    PART_11_VOICE_RESERVE: [0x3a, range, 64],
-    PART_12_VOICE_RESERVE: [0x3b, range, 64],
-    PART_13_VOICE_RESERVE: [0x3c, range, 64],
-    PART_14_VOICE_RESERVE: [0x3d, range, 64],
-    PART_15_VOICE_RESERVE: [0x3e, range, 64],
-    PART_16_VOICE_RESERVE: [0x3f, range, 64],
+    PART_11_VOICE_RESERVE: [0x3A, range, 64],
+    PART_12_VOICE_RESERVE: [0x3B, range, 64],
+    PART_13_VOICE_RESERVE: [0x3C, range, 64],
+    PART_14_VOICE_RESERVE: [0x3D, range, 64],
+    PART_15_VOICE_RESERVE: [0x3E, range, 64],
+    PART_16_VOICE_RESERVE: [0x3F, range, 64],
 } as const
 
 // 1-2-2 Performance part
@@ -418,12 +419,12 @@ const PERFORMANCE_PART = {
     PART_PAN:               [0x07, range, 127],
     PITCH_COARSE_TUNE:      [0x08, range, 96],
     PITCH_FINE_TUNE:        [0x09, range, 100],
-    OUTPUT_ASSIGN:          [0x0a, values, VALUES.OUTPUT_ASSIGN],
-    OUTPUT_LEVEL:           [0x0b, range, 127],
-    CHORUS_SEND_LEVEL:      [0x0c, range, 127],
-    REVERB_SEND_LEVEL:      [0x0d, range, 127],
-    RECEIVE_PROGRAM_CHANGE: [0x0e, values, VALUES.BOOLEAN],
-    RECEIVE_VOLUME:         [0x0f, values, VALUES.BOOLEAN],
+    OUTPUT_ASSIGN:          [0x0A, values, VALUES.OUTPUT_ASSIGN],
+    OUTPUT_LEVEL:           [0x0B, range, 127],
+    CHORUS_SEND_LEVEL:      [0x0C, range, 127],
+    REVERB_SEND_LEVEL:      [0x0D, range, 127],
+    RECEIVE_PROGRAM_CHANGE: [0x0E, values, VALUES.BOOLEAN],
+    RECEIVE_VOLUME:         [0x0F, values, VALUES.BOOLEAN],
     RECEIVE_HOLD_1:         [0x10, values, VALUES.BOOLEAN],
     KEY_RANGE_LOWER:        [0x11, range, 127],
     KEY_RANGE_UPPER:        [0x12, range, 127],
@@ -433,11 +434,11 @@ const PERFORMANCE_PART = {
 const PATCH_COMMON = {
     ...generateNameSection(),
     //
-    ...generateEfxSection(0x0c),
+    ...generateEfxSection(0x0C),
     //
-    DEFAULT_TEMPO:          [0x2c, range, [20, 250]],
-    PATCH_LEVEL:            [0x2e, range, 127],
-    PATCH_PAN:              [0x2f, range, 127],
+    DEFAULT_TEMPO:          [0x2C, range, [20, 250]],
+    PATCH_LEVEL:            [0x2E, range, 127],
+    PATCH_PAN:              [0x2F, range, 127],
     ANALOG_FEEL_DEPTH:      [0x30, range, 127],
     BENDER_RANGE_UP:        [0x31, range, 12],
     BENDER_RANGE_DOWN:      [0x32, range, 48],
@@ -448,12 +449,12 @@ const PATCH_COMMON = {
     PORTAMENTO_TYPE:        [0x37, values, VALUES.PORTAMENTO_TYPE],
     PORTAMENTO_START:       [0x38, values, VALUES.PORTAMENTO_START],
     PORTAMENTO_TIME:        [0x39, range, 127],
-    PATCH_CONTROL_SOURCE_2: [0x3a, values, VALUES.PATCH_CONTROL_SOURCE],
-    PATCH_CONTROL_SOURCE_3: [0x3b, values, VALUES.PATCH_CONTROL_SOURCE],
-    EFX_CONTROL_HOLD_PEAK:  [0x3c, values, VALUES.HOLD_PEAK],
-    CONTROL_1_HOLD_PEAK:    [0x3d, values, VALUES.HOLD_PEAK],
-    CONTROL_2_HOLD_PEAK:    [0x3e, values, VALUES.HOLD_PEAK],
-    CONTROL_3_HOLD_PEAK:    [0x3f, values, VALUES.HOLD_PEAK],
+    PATCH_CONTROL_SOURCE_2: [0x3A, values, VALUES.PATCH_CONTROL_SOURCE],
+    PATCH_CONTROL_SOURCE_3: [0x3B, values, VALUES.PATCH_CONTROL_SOURCE],
+    EFX_CONTROL_HOLD_PEAK:  [0x3C, values, VALUES.HOLD_PEAK],
+    CONTROL_1_HOLD_PEAK:    [0x3D, values, VALUES.HOLD_PEAK],
+    CONTROL_2_HOLD_PEAK:    [0x3E, values, VALUES.HOLD_PEAK],
+    CONTROL_3_HOLD_PEAK:    [0x3F, values, VALUES.HOLD_PEAK],
     VELOCITY_RANGE_SWITCH:  [0x40, values, VALUES.BOOLEAN],
     OCTAVE_SWITCH:          [0x41, range, 6],
     STRETCH_TUNE_DEPTH:     [0x42, values, VALUES.STRETCH_TUNE_DEPTH],
@@ -475,13 +476,13 @@ const PATCH_TONE = {
     FXM_COLOR:                         [0x07, range, 3],
     FXM_DEPTH:                         [0x08, range, 15],
     TONE_DELAY_MODE:                   [0x09, values, VALUES.TONE_DELAY],
-    TONE_DELAY_TIME:                   [0x0a, range, 127],
+    TONE_DELAY_TIME:                   [0x0A, range, 127],
     //
-    VELOCITY_CROSS_FADE_DEPTH:         [0x0b, range, 127],
-    VELOCITY_RANGE_LOWER:              [0x0c, range, [1, 127]],
-    VELOCITY_RANGE_UPPER:              [0x0d, range, [1, 127]],
-    KEY_RANGE_LOWER:                   [0x0e, range, 127],
-    KEY_RANGE_UPPER:                   [0x0f, range, 127],
+    VELOCITY_CROSS_FADE_DEPTH:         [0x0B, range, 127],
+    VELOCITY_RANGE_LOWER:              [0x0C, range, [1, 127]],
+    VELOCITY_RANGE_UPPER:              [0x0D, range, [1, 127]],
+    KEY_RANGE_LOWER:                   [0x0E, range, 127],
+    KEY_RANGE_UPPER:                   [0x0F, range, 127],
     REDAMPER_CONTROL_SWITCH:           [0x10, values, VALUES.BOOLEAN],
     VOLUME_CONTROL_SWITCH:             [0x11, values, VALUES.BOOLEAN],
     HOLD_1_CONTROL_SWITCH:             [0x12, values, VALUES.BOOLEAN],
@@ -489,12 +490,12 @@ const PATCH_TONE = {
     PAN_CONTROL_SWITCH:                [0x14, values, VALUES.BOOLEAN],
     ...CONTROLLER_SECTION,
     //
-    ...generateLfoSection(1, 0x2d),
+    ...generateLfoSection(1, 0x2D),
     ...generateLfoSection(2, 0x35),
     //
-    COARSE_TUNE:                       [0x3d, range, [-48, 48]],
-    FINE_TUNE:                         [0x3e, range, [-50, 50]],
-    RANDOM_PITH_DEPTH:                 [0x3f, values, VALUES.RANDOM_PITCH_DEPTH],
+    COARSE_TUNE:                       [0x3D, range, [-48, 48]],
+    FINE_TUNE:                         [0x3E, range, [-50, 50]],
+    RANDOM_PITH_DEPTH:                 [0x3F, values, VALUES.RANDOM_PITCH_DEPTH],
     PITCH_KEYFOLLOW:                   [0x40, values, VALUES.KEYFOLLOW],
     P_ENV_DEPTH:                       [0x41, range, [-12, 12]],
     // TODO:
@@ -507,12 +508,12 @@ const PATCH_TONE = {
     P_ENV_TIME_2:                      [0x47, range, 127],
     P_ENV_TIME_3:                      [0x48, range, 127],
     P_ENV_TIME_4:                      [0x49, range, 127],
-    P_ENV_LEVEL_1:                     [0x4a, range, [-63, 63]],
-    P_ENV_LEVEL_2:                     [0x4b, range, [-63, 63]],
-    P_ENV_LEVEL_3:                     [0x4c, range, [-63, 63]],
-    P_ENV_LEVEL_4:                     [0x4d, range, [-63, 63]],
-    PITCH_LFO_1_DEPTH:                 [0x4e, range, [-63, 63]],
-    PITCH_LFO_2_DEPTH:                 [0x4f, range, [-63, 63]],
+    P_ENV_LEVEL_1:                     [0x4A, range, [-63, 63]],
+    P_ENV_LEVEL_2:                     [0x4B, range, [-63, 63]],
+    P_ENV_LEVEL_3:                     [0x4C, range, [-63, 63]],
+    P_ENV_LEVEL_4:                     [0x4D, range, [-63, 63]],
+    PITCH_LFO_1_DEPTH:                 [0x4E, range, [-63, 63]],
+    PITCH_LFO_2_DEPTH:                 [0x4F, range, [-63, 63]],
     //
     FILTER_TYPE:                       [0x50, values, VALUES.FILTER_TYPE],
     CUTOFF_FREQUENCY:                  [0x51, range, 127],
@@ -537,14 +538,14 @@ const PATCH_TONE = {
     TONE_PAN:                          [0x77, range, [-64, 63]],
     PAN_KEYFOLLOW:                     [0x78, values, VALUES.SENSITIVITY],
     RANDOM_PAN_DEPTH:                  [0x79, range, 63],
-    ALTERNATIVE_PAN_DEPTH:             [0x7a, range, [1, 127]],
-    PAN_LFO_1_DEPTH:                   [0x7b, range, [-63, 63]],
-    PAN_LFO_2_DEPTH:                   [0x7c, range, [-63, 63]],
+    ALTERNATIVE_PAN_DEPTH:             [0x7A, range, [1, 127]],
+    PAN_LFO_1_DEPTH:                   [0x7B, range, [-63, 63]],
+    PAN_LFO_2_DEPTH:                   [0x7C, range, [-63, 63]],
     //
-    OUTPUT_ASSIGN:                     [0x7d, values, VALUES.OUTPUT],
-    OUTPUT_LEVEL:                      [0x7e, range, 127],
-    CHORUS_SEND_LEVEL:                 [0x7f, range, 127],
-    REVERB_SEND_LEVEL:                 [0x100, range, 127],
+    OUTPUT_ASSIGN:                     [0x7D, values, VALUES.OUTPUT],
+    OUTPUT_LEVEL:                      [0x7E, range, 127],
+    CHORUS_SEND_LEVEL:                 [0x7F, range, 127],
+    REVERB_SEND_LEVEL:                 [0x1_00, range, 127],
 } as const
 
 // 1-4-1 Rhythm common
@@ -561,13 +562,13 @@ const RHYTHM_NOTE = {
     MUTE_GROUP:                      [0x07, values, VALUES.MUTE_GROUP],
     ENVELOPE_MODE:                   [0x08, values, VALUES.ENVELOPE_MODE],
     VOLUME_CONTROL_SWITCH:           [0x09, values, VALUES.BOOLEAN],
-    HOLD_1_CONTROL_SWITCH:           [0x0a, values, VALUES.BOOLEAN],
-    PAN_CONTROL_SWITCH:              [0x0b, values, VALUES.PAN_CONTROL_SWITCH],
+    HOLD_1_CONTROL_SWITCH:           [0x0A, values, VALUES.BOOLEAN],
+    PAN_CONTROL_SWITCH:              [0x0B, values, VALUES.PAN_CONTROL_SWITCH],
     //
-    SOURCE_KEY:                      [0x0c, range, 127],
-    FINE_TUNE:                       [0x0d, range, [-50, 50]],
-    RANDOM_PITCH_DEPTH:              [0x0e, values, VALUES.RANDOM_PITCH_DEPTH],
-    P_ENV_DEPTH:                     [0x0f, range, [-12, 12]],
+    SOURCE_KEY:                      [0x0C, range, 127],
+    FINE_TUNE:                       [0x0D, range, [-50, 50]],
+    RANDOM_PITCH_DEPTH:              [0x0E, values, VALUES.RANDOM_PITCH_DEPTH],
+    P_ENV_DEPTH:                     [0x0F, range, [-12, 12]],
     /** -50 - 200 */
     P_ENV_VELOCITY_SENSITIVITY:      [0x10, range, 125],
     P_ENV_VELOCITY_TIME_SENSITIVITY: [0x11, values, VALUES.SENSITIVITY],
@@ -580,14 +581,14 @@ const RHYTHM_NOTE = {
     P_ENV_LEVEL_3:                   [0x18, range, [-63, 63]],
     P_ENV_LEVEL_4:                   [0x19, range, [-63, 63]],
     //
-    FILTER_TYPE:                     [0x1a, values, VALUES.FILTER_TYPE],
-    CUTOFF_FREQUENCY:                [0x1b, range, 127],
-    RESONANCE:                       [0x1c, range, 127],
+    FILTER_TYPE:                     [0x1A, values, VALUES.FILTER_TYPE],
+    CUTOFF_FREQUENCY:                [0x1B, range, 127],
+    RESONANCE:                       [0x1C, range, 127],
     /** -50 - 200 */
-    RESONANCE_VELOCITY_VALUES:       [0x1d, range, 125],
-    F_ENV_DEPTH:                     [0x1e, range, [-63, 63]],
+    RESONANCE_VELOCITY_VALUES:       [0x1D, range, 125],
+    F_ENV_DEPTH:                     [0x1E, range, [-63, 63]],
     /** -50 - 200 */
-    F_ENV_VELOCITY_SENSITIVITY:      [0x1f, range, 125],
+    F_ENV_VELOCITY_SENSITIVITY:      [0x1F, range, 125],
     F_ENV_VELOCITY_TIME_SENSITIVITY: [0x20, values, VALUES.SENSITIVITY],
     F_ENV_TIME_1:                    [0x21, range, 127],
     F_ENV_TIME_2:                    [0x22, range, 127],
@@ -600,12 +601,12 @@ const RHYTHM_NOTE = {
     //
     TONE_LEVEL:                      [0x29, range, 127],
     /** -50 - 200 */
-    A_ENV_VELOCITY_SENSITIVITY:      [0x2a, range, 125],
-    A_ENV_VELOCITY_TIME_SENSITIVITY: [0x2b, values, VALUES.SENSITIVITY],
-    A_ENV_TIME_1:                    [0x2c, range, 127],
-    A_ENV_TIME_2:                    [0x2d, range, 127],
-    A_ENV_TIME_3:                    [0x2e, range, 127],
-    A_ENV_TIME_4:                    [0x2f, range, 127],
+    A_ENV_VELOCITY_SENSITIVITY:      [0x2A, range, 125],
+    A_ENV_VELOCITY_TIME_SENSITIVITY: [0x2B, values, VALUES.SENSITIVITY],
+    A_ENV_TIME_1:                    [0x2C, range, 127],
+    A_ENV_TIME_2:                    [0x2D, range, 127],
+    A_ENV_TIME_3:                    [0x2E, range, 127],
+    A_ENV_TIME_4:                    [0x2F, range, 127],
     A_ENV_LEVEL_1:                   [0x30, range, 127],
     A_ENV_LEVEL_2:                   [0x31, range, 127],
     A_ENV_LEVEL_3:                   [0x32, range, 127],
@@ -625,8 +626,8 @@ const RHYTHM_NOTE = {
 const RHYTHM_NOTES = (() => {
     const parts: {[key: string]: readonly [number, typeof RHYTHM_NOTE]} = {}
 
-    for (let i = 0; i < 64; i++) {
-        parts[`RHYTHM_NOTE_${i + 35}`] = [(0x23 + i) << 8, RHYTHM_NOTE]
+    for (let index = 0; index < 64; index++) {
+        parts[`RHYTHM_NOTE_${index + 35}`] = [(0x23 + index) << 8, RHYTHM_NOTE]
     }
 
     return parts
@@ -646,12 +647,12 @@ const SCALE_TUNES = {
     PART_8:     [0x17 << 8, SCALE_TUNE],
     PART_9:     [0x18 << 8, SCALE_TUNE],
     PART_10:    [0x19 << 8, SCALE_TUNE],
-    PART_11:    [0x1a << 8, SCALE_TUNE],
-    PART_12:    [0x1b << 8, SCALE_TUNE],
-    PART_13:    [0x1c << 8, SCALE_TUNE],
-    PART_14:    [0x1d << 8, SCALE_TUNE],
-    PART_15:    [0x1e << 8, SCALE_TUNE],
-    PART_16:    [0x1f << 8, SCALE_TUNE],
+    PART_11:    [0x1A << 8, SCALE_TUNE],
+    PART_12:    [0x1B << 8, SCALE_TUNE],
+    PART_13:    [0x1C << 8, SCALE_TUNE],
+    PART_14:    [0x1D << 8, SCALE_TUNE],
+    PART_15:    [0x1E << 8, SCALE_TUNE],
+    PART_16:    [0x1F << 8, SCALE_TUNE],
     PATCH_MODE: [0x20 << 8, SCALE_TUNE],
 } as const
 
@@ -668,12 +669,12 @@ const PERFORMANCE = {
     PART_8:  [0x17 << 8, PERFORMANCE_PART],
     PART_9:  [0x18 << 8, PERFORMANCE_PART],
     PART_10: [0x19 << 8, PERFORMANCE_PART],
-    PART_11: [0x1a << 8, PERFORMANCE_PART],
-    PART_12: [0x1b << 8, PERFORMANCE_PART],
-    PART_13: [0x1c << 8, PERFORMANCE_PART],
-    PART_14: [0x1d << 8, PERFORMANCE_PART],
-    PART_15: [0x1e << 8, PERFORMANCE_PART],
-    PART_16: [0x1f << 8, PERFORMANCE_PART],
+    PART_11: [0x1A << 8, PERFORMANCE_PART],
+    PART_12: [0x1B << 8, PERFORMANCE_PART],
+    PART_13: [0x1C << 8, PERFORMANCE_PART],
+    PART_14: [0x1D << 8, PERFORMANCE_PART],
+    PART_15: [0x1E << 8, PERFORMANCE_PART],
+    PART_16: [0x1F << 8, PERFORMANCE_PART],
 } as const
 
 // 1-3 Patch
@@ -692,37 +693,37 @@ const RHYTHM = {
 } as const
 
 const PERFORMANCE_MODE_TEMPORARY_PATCH = {
-    PART_1:  [0x0200 << 16, PATCH],
-    PART_2:  [0x0201 << 16, PATCH],
-    PART_3:  [0x0202 << 16, PATCH],
-    PART_4:  [0x0203 << 16, PATCH],
-    PART_5:  [0x0204 << 16, PATCH],
-    PART_6:  [0x0205 << 16, PATCH],
-    PART_7:  [0x0206 << 16, PATCH],
-    PART_8:  [0x0207 << 16, PATCH],
-    PART_9:  [0x0208 << 16, PATCH],
-    PART_11: [0x020a << 16, PATCH],
-    PART_12: [0x020b << 16, PATCH],
-    PART_13: [0x020c << 16, PATCH],
-    PART_14: [0x020d << 16, PATCH],
-    PART_15: [0x020e << 16, PATCH],
-    PART_16: [0x020f << 16, PATCH],
+    PART_1:  [0x02_00 << 16, PATCH],
+    PART_2:  [0x02_01 << 16, PATCH],
+    PART_3:  [0x02_02 << 16, PATCH],
+    PART_4:  [0x02_03 << 16, PATCH],
+    PART_5:  [0x02_04 << 16, PATCH],
+    PART_6:  [0x02_05 << 16, PATCH],
+    PART_7:  [0x02_06 << 16, PATCH],
+    PART_8:  [0x02_07 << 16, PATCH],
+    PART_9:  [0x02_08 << 16, PATCH],
+    PART_11: [0x02_0A << 16, PATCH],
+    PART_12: [0x02_0B << 16, PATCH],
+    PART_13: [0x02_0C << 16, PATCH],
+    PART_14: [0x02_0D << 16, PATCH],
+    PART_15: [0x02_0E << 16, PATCH],
+    PART_16: [0x02_0F << 16, PATCH],
 } as const
 
 const USER_CARD_PART = {
     ...(() => {
         const addresses: {[key: string]: DehydratedDataAddressNode} = {}
-        for (let i = 0; i < 32; i++) {
-            addresses[`PERFORMANCE_${i + 1}`] = [i << 16, PERFORMANCE]
+        for (let index = 0; index < 32; index++) {
+            addresses[`PERFORMANCE_${index + 1}`] = [index << 16, PERFORMANCE]
         }
         return addresses
     })(),
-    RHYTHM_SETUP_1: [0x0040 << 16, RHYTHM],
-    RHYTHM_SETUP_2: [0x0041 << 16, RHYTHM],
+    RHYTHM_SETUP_1: [0x00_40 << 16, RHYTHM],
+    RHYTHM_SETUP_2: [0x00_41 << 16, RHYTHM],
     ...(() => {
         const addresses: {[key: string]: DehydratedDataAddressNode} = {}
-        for (let i = 0; i < 128; i++) {
-            addresses[`PATCH_${i + 1}`] = [(0x0100 + i) << 16, PATCH]
+        for (let index = 0; index < 128; index++) {
+            addresses[`PATCH_${index + 1}`] = [(0x01_00 + index) << 16, PATCH]
         }
         return addresses
     })(),
@@ -732,16 +733,16 @@ const USER_CARD_PART = {
 // DATA ADDRESSES
 // ------------------------------------------------------------
 const JV1080_DATA_ADDRESSES_DEHYDRATED = {
-    SYSTEM:                           [0x0000 << 16, SYSTEM_COMMON],
-    SCALE_TUNE:                       [0x0000 << 16, SCALE_TUNES],
+    SYSTEM:                           [0x00_00 << 16, SYSTEM_COMMON],
+    SCALE_TUNE:                       [0x00_00 << 16, SCALE_TUNES],
     //
-    TEMPORARY_PERFORMANCE:            [0x0100 << 16, PERFORMANCE],
-    PERFORMANCE_MODE_TEMPORARY_PATCH: [0x0000 << 16, PERFORMANCE_MODE_TEMPORARY_PATCH],
-    TEMPORARY_RHYTHM_SETUP:           [0x0209 << 16, RHYTHM],
-    PATCH_MODE_TEMPORARY_PATCH:       [0x0300 << 16, PATCH],
+    TEMPORARY_PERFORMANCE:            [0x01_00 << 16, PERFORMANCE],
+    PERFORMANCE_MODE_TEMPORARY_PATCH: [0x00_00 << 16, PERFORMANCE_MODE_TEMPORARY_PATCH],
+    TEMPORARY_RHYTHM_SETUP:           [0x02_09 << 16, RHYTHM],
+    PATCH_MODE_TEMPORARY_PATCH:       [0x03_00 << 16, PATCH],
     //
-    USER:                             [0x1000 << 16, USER_CARD_PART],
-    CARD:                             [0x2000 << 16, USER_CARD_PART],
+    USER:                             [0x10_00 << 16, USER_CARD_PART],
+    CARD:                             [0x20_00 << 16, USER_CARD_PART],
 } as const
 
 export const JV1080_DATA_ADDRESSES = rehydrateDataAddresses(JV1080_DATA_ADDRESSES_DEHYDRATED)

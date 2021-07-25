@@ -8,7 +8,9 @@ type ValidatorKey = `${number}-${number}`
 const validators = new Map<ValidatorKey, ValueValidator>()
 
 export function getValueValidator(a: readonly [number, number] | number): ValueValidator {
-    const [min, max] = Array.isArray(a) ? [Math.min(...a), Math.max(...a)] : [0, a as number]
+    const [min, max] = Array.isArray(a)
+        ? [Math.min(...a), Math.max(...a)]
+        : [0, a as number]
 
     const key: ValidatorKey = `${min}-${max}`
     const validatorObject = validators.get(key) || {

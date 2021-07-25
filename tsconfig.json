@@ -9,18 +9,13 @@
         "experimentalDecorators": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
+        "importsNotUsedAsValues": "error",
         "allowSyntheticDefaultImports": true,
         "sourceMap": true,
         "baseUrl": ".",
-        "types": [
-            "webpack-env",
-            "jest",
-            "webmidi"
-        ],
+        "types": ["webpack-env", "jest", "webmidi"],
         "paths": {
-            "@/*": [
-                "src/*"
-            ]
+            "@/*": ["src/*"]
         },
         "lib": [
             "esnext",
@@ -29,13 +24,6 @@
             "scripthost"
         ]
     },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-        "tests/**/*.ts",
-        "tests/**/*.tsx"
-    ],
     "exclude": [
         "node_modules"
     ]
